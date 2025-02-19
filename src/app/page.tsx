@@ -1,7 +1,23 @@
+"use client";
+
 import GetStartedForm from "@/components/GetStartedForm";
 import Nav from "@/components/Nav";
+import TrendingCard from "@/components/TrendingCard";
+// import TrendingCard from "@/components/TrendingCard";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
+
+import { useState } from "react";
 
 export default function Home() {
+  // state
+  const [trending, setTrending] = useState([]);
+
   return (
     <div className="">
       <div className="relative h-screen bg-[url(../../public/nextflix.jpg)] bg-cover">
@@ -23,6 +39,20 @@ export default function Home() {
               membership.
             </p>
             <GetStartedForm />
+
+            {/* more than likely going to break */}
+            <Carousel>
+              <CarouselContent>
+                {trending.map((media: string) => (
+                  <CarouselItem key="blah" className="basis-1/3">
+                    <TrendingCard image={media.image} />
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+            </Carousel>
+            {/* {trending.map((media) => (
+              <TrendingCard key={"blah"} image={media.image} />
+            ))} */}
           </div>
         </div>
       </div>
