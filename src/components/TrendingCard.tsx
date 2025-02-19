@@ -1,6 +1,6 @@
 "use client";
 
-const TrendingCard = ({ image }) => {
+const TrendingCard = ({}) => {
   return <div>TrendingCard</div>;
 };
 

@@ -2,21 +2,40 @@
 
 import GetStartedForm from "@/components/GetStartedForm";
 import Nav from "@/components/Nav";
-import TrendingCard from "@/components/TrendingCard";
 // import TrendingCard from "@/components/TrendingCard";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel";
+import // Carousel,
+// CarouselContent,
+// CarouselItem,
+// CarouselNext,
+// CarouselPrevious,
+"@/components/ui/carousel";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function Home() {
   // state
   const [trending, setTrending] = useState([]);
+
+  const apiKey = process.env.MOVIE_API_KEY;
+
+  // Get trending movies
+  useEffect(() => {
+    const getTrendingMovies = async () => {
+      try {
+        const res = await fetch(
+          `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=en-US&page=1`
+        );
+        const data = await res.json();
+
+        setTrending(data.results);
+      } catch (err) {
+        console.error("There is an error: ", err);
+      }
+    };
+
+    getTrendingMovies();
+  }, [apiKey]);
+  console.log(trending);
 
   return (
     <div className="">
@@ -41,7 +60,7 @@ export default function Home() {
             <GetStartedForm />
 
             {/* more than likely going to break */}
-            <Carousel>
+            {/* <Carousel>
               <CarouselContent>
                 {trending.map((media: string) => (
                   <CarouselItem key="blah" className="basis-1/3">
@@ -49,7 +68,8 @@ export default function Home() {
                   </CarouselItem>
                 ))}
               </CarouselContent>
-            </Carousel>
+            </Carousel> */}
+
             {/* {trending.map((media) => (
               <TrendingCard key={"blah"} image={media.image} />
             ))} */}
