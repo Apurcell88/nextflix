@@ -1,6 +1,7 @@
 "use client";
 
 import GetStartedForm from "@/components/GetStartedForm";
+import MoreInfoCard from "@/components/MoreInfoCard";
 import Nav from "@/components/Nav";
 import TrendingCard from "@/components/TrendingCard";
 import {
@@ -14,7 +15,26 @@ import { useState, useEffect } from "react";
 export default function Home() {
   // state
   const [trending, setTrending] = useState([]);
-  const [popularity, setPopularity] = useState(1);
+  const [popularity, setPopularity] = useState(0);
+  const [displayMoreInfo, setDisplayMoreInfo] = useState(true);
+  const [selectedMovieInfo, setSelectedMovieInfo] = useState([]);
+
+  // functions
+  const incrementPopularity = () => {
+    setPopularity((prev) => prev + 1);
+  };
+
+  const getMovieById = (id) => {
+    const selectedMovie = trending.filter((movie) => {
+      return movie.id === id;
+    });
+
+    setSelectedMovieInfo(selectedMovie);
+  };
+
+  useEffect(() => {
+    console.log("selectedMovieInfo updated:", selectedMovieInfo);
+  }, [selectedMovieInfo]);
 
   // Get trending movies
   useEffect(() => {
@@ -33,11 +53,10 @@ export default function Home() {
 
     getTrendingMovies();
   }, []);
-  console.log(trending);
 
   return (
     <div className="">
-      <div className="relative h-[100%] bg-[url(../../public/nextflix.jpg)] bg-cover">
+      <div className="relative bg-[url(../../public/nextflix.jpg)] bg-cover">
         {" "}
         {/* Added relative here */}
         <Nav /> {/* Nav component remains on top */}
@@ -62,18 +81,33 @@ export default function Home() {
             ))} */}
           </div>
         </div>
-        <div className="mt-12 bg-black text-white h-screen pt-4">
+        <div className="pt-24 bg-black text-white h-screen">
           <h2 className="pl-6 font-semibold text-lg pb-4">Trending Now</h2>
+
           <Carousel className="px-10">
             <CarouselContent>
               {trending.map((movie) => (
                 <CarouselItem className="basis-1/3">
-                  <TrendingCard key={movie.title} image={movie.poster_path} />
+                  <TrendingCard
+                    key={movie.title}
+                    image={movie.poster_path}
+                    popularity={popularity}
+                    id={movie.id}
+                    getMovieById={getMovieById}
+                  />
                 </CarouselItem>
               ))}
             </CarouselContent>
           </Carousel>
         </div>
+        {displayMoreInfo
+          ? selectedMovieInfo.map((movie) => {
+              return <MoreInfoCard key={movie.id} title={movie.title} />;
+            })
+          : ""}
+        {/* {selectedMovieInfo.map((movie, index) => {
+          return <MoreInfoCard key={movie.id} title={movie.title} />;
+        })} */}
       </div>
     </div>
   );

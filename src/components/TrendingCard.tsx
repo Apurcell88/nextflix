@@ -3,9 +3,17 @@ import Image from "next/image";
 
 interface TrendingCardProps {
   image: string;
+  popularity: number;
+  id: number;
+  getMovieById: (id: number) => [];
 }
 
-const TrendingCard: React.FC<TrendingCardProps> = ({ image }) => {
+const TrendingCard: React.FC<TrendingCardProps> = ({
+  image,
+  id,
+  getMovieById,
+  popularity,
+}) => {
   return (
     <div>
       <Image
@@ -14,6 +22,9 @@ const TrendingCard: React.FC<TrendingCardProps> = ({ image }) => {
         width={120}
         height={120}
         className="rounded-md"
+        onClick={() => {
+          getMovieById(id);
+        }}
       />
     </div>
   );
