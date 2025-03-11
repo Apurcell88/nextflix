@@ -1,4 +1,5 @@
 "use client";
+
 import Image from "next/image";
 
 interface TrendingCardProps {
@@ -6,6 +7,8 @@ interface TrendingCardProps {
   popularity: number;
   id: number;
   getMovieById: (id: number) => [];
+  displayMoreInfoTrue: () => void;
+  selectedMovieTrue: () => void;
 }
 
 const TrendingCard: React.FC<TrendingCardProps> = ({
@@ -13,6 +16,8 @@ const TrendingCard: React.FC<TrendingCardProps> = ({
   id,
   getMovieById,
   popularity,
+  displayMoreInfoTrue,
+  selectedMovieTrue,
 }) => {
   return (
     <div>
@@ -24,6 +29,8 @@ const TrendingCard: React.FC<TrendingCardProps> = ({
         className="rounded-md"
         onClick={() => {
           getMovieById(id);
+          displayMoreInfoTrue();
+          selectedMovieTrue();
         }}
       />
     </div>

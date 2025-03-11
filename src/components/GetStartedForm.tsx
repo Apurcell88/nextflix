@@ -18,7 +18,7 @@ const GetStartedForm = () => {
       />
       <button
         type="submit"
-        className="bg-red-700 w-[9rem] h-[3rem] mt-4 rounded-sm font-semibold"
+        className="bg-red-700 w-[9rem] h-[3rem] my-4 rounded-sm font-semibold"
       >
         Get Started
       </button>
