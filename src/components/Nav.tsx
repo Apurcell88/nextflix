@@ -1,10 +1,11 @@
 "use client";
 
 import { revalidatePath } from "next/cache";
-import { useRouter } from "next/navigation";
+// import { useRouter } from "next/navigation";
+import { SignInButton } from "@clerk/nextjs";
 
 const Nav = () => {
-  const router = useRouter();
+  // const router = useRouter();
 
   return (
     <div className="flex justify-between relative z-10">
@@ -17,12 +18,11 @@ const Nav = () => {
         </button>
       </div>
       <div>
-        <button
-          className="bg-red-700 text-white w-20 h-8 m-6 rounded text-sm font-semibold"
-          onClick={() => router.push("/login")}
-        >
-          Sign In
-        </button>
+        <SignInButton forceRedirectUrl={"/user"}>
+          <button className="bg-red-700 text-white w-20 h-8 m-6 rounded text-sm font-semibold">
+            Sign In
+          </button>
+        </SignInButton>
       </div>
     </div>
   );
